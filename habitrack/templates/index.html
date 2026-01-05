@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+
+{% macro task_list(tasks, label) %}
+<optgroup label="{{ label }}">
+  {% for (task, is_completed) in tasks %}
+    <option value="{{ task.id }}" {% if is_completed %}disabled{% endif %}>
+      {{ task.name }} ({{ task.points }} pts)
+      [{{ task.allowable_per_period_readable }}]
+    </option>
+  {% endfor %}
+</optgroup>
+{% endmacro %}
+
+{% block content %}
+<h1>Habitrack - {{ attributes.balance }} pts</h1>
+<a href="{{ url_for('new_task') }}" class="btn btn-primary">New Task</a>
+
+<div class="mb-3">
+  <form action="{{ url_for('complete_task') }}" method="post" class="row row-cols-xs-auto align-items-center">
+    <div class="col-auto">
+      <select name="task_id" class="form-select">
+        {{ task_list(daily_tasks, 'Daily Tasks') }}
+        {{ task_list(weekly_tasks, 'Weekly Tasks') }}
+      </select>
+    </div>
+    <div class="col">
+      <button class="btn btn-success" type="submit">Complete Task</button>
+    </div>
+  </form>
+</div>
+
+
+<h3>Recently Completed</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Completed On</th>
+      <th>Task</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for completion in recent_completions %}
+    <tr>
+      <td>{{ completion.timestamp }}</td>
+      <td>{{ completion.task.name }}</td>
+      <td>{{ completion.point_change }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

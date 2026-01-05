@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<form method="POST" class="form">
+    <div class="mb-3">
+        <label for="name" class="form-label">Task Name</label>
+        <input class="form-control" type="text" name="name" placeholder="Task Name">
+    </div>
+
+    <div class="mb-3">
+        <label for="points" class="form-label">Points</label>
+        <input class="form-control" type="number" name="points" placeholder="Points">
+    </div>
+
+    <div class="mb-3">
+        <label for="allowable_per_period" class="form-label">Allowable Per Period</label>
+        <small>-1 for Unlimited</small>
+        <input class="form-control" type="number" name="allowable_per_period" placeholder="Allowable Per Period">
+    </div>
+
+    <div class="mb-3">
+        <label for="period_type" class="form-label">Period Type</label>
+        <select class="form-select" name="period_type">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Add Task</button>
+</form>
+{% endblock %}
