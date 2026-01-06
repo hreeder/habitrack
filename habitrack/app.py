@@ -17,7 +17,6 @@ from habitrack.models import (
 DB_PATH = os.environ.get("DB_PATH", "sqlite:///habitrack.db")
 
 app = Flask(__name__)
-print(f"Instance Path {app.instance_path=}")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = DB_PATH
 db.init_app(app)
